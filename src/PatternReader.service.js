@@ -78,7 +78,7 @@ function checkArrayAgainstArrayOfArrays(arrayToCheck, arrayOfArrays) {
 }
 
 function isGlidingPattern(sequence) {
-    console.log(sequence.name);
+    // console.log(sequence.name);
     // can glide left or right
     // Sometimes only part of the sequence is gliding....
 
@@ -119,7 +119,7 @@ function isGlidingPattern(sequence) {
 
     }
 
-    console.log(glidingLeftCount, glidingRightCount);
+    // console.log(glidingLeftCount, glidingRightCount);
     return (glidingLeftCount + glidingRightCount) > glidingThreshold * numberSequencesToCompare;
 }
 

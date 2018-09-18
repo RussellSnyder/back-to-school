@@ -2,6 +2,7 @@
   "name": "back-to-school",
   "version": "0.1.0",
   "private": true,
+  "homepage" : "http://myname.github.io/myapp",
   "dependencies": {
     "react": "^16.5.1",
     "react-dom": "^16.5.1",
