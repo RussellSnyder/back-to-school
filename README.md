@@ -1,7 +1,12 @@
 # Back To School
 ## Wunderpähkinä vol. 9
 
-This is a solution to [Wundernut no.9](https://github.com/wunderdogsw/wunderpahkina-vol9).  To run is, download and run npm i, npm start and it should work :-)
+This is a solution to [Wundernut no.9](https://github.com/wunderdogsw/wunderpahkina-vol9).  
+
+To run the solution, download this repo, navigate to the back-to-school folder and run the following commands 
+
+1) npm i
+2) npm start
 
 
 This project was bootstrapped with [Create React App](https://github.com/facebookincubator/create-react-app).
