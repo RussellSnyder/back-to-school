@@ -13,7 +13,7 @@ const AboutMe =
             If you like this little react app, maybe we can work together!
         </p>
         <p>
-            Please note that I decided that if portions of a pattern gradually offset themselves (instead of just the whole), I considered it of the 'gliding' type.
+            Please note that I decided that if portions of a pattern gradually offset themselves (instead of just the whole), I considered it of the 'gliding' type.  This leads to self referential patterns to be classified as gliding
         </p>
         <p>
             I used a library called Rough.JS for the hand drawn effects ;-)

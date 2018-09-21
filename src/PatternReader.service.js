@@ -1,5 +1,5 @@
 const padding = 5;
-const glidingThreshold = 50;
+const glidingThreshold = 175;
 
 
 function convertToBinary(input) {
@@ -31,6 +31,27 @@ function getAdjecentNumberFilling(line, currentIndex, desiredIndex) {
     } else {
         return line[currentIndex + desiredIndex]
     }
+}
+
+function getInfoAboutCurrentSquare(currentLine, i) {
+
+    let isFilled = currentLine[i] === 1;
+
+    let totalToLeft = getAdjecentNumberFilling(currentLine, i, -1) + getAdjecentNumberFilling(currentLine, i, -2)
+    let totalToRight = getAdjecentNumberFilling(currentLine, i, 1) + getAdjecentNumberFilling(currentLine, i, 2)
+    let totalAdjacent = totalToLeft + totalToRight;
+
+    let message = `There are ${totalToLeft} filled to the left and ${totalToRight} filled to the right.`;
+    if (isFilled) {
+        message += ` Following rule #2, the adjacent total is ${totalAdjacent} 
+        so the following square will be ${totalAdjacent === 2 || totalAdjacent === 4 ? "filled" : "blank"}`
+    } else {
+        message += ` Following rule #1, the adjacent total is ${totalAdjacent} 
+        so the following square will be ${totalAdjacent === 2 || totalAdjacent === 3 ? "filled" : "blank"}`
+    }
+
+
+    return message;
 }
 
 function determineNextLine(currentLine) {
@@ -78,7 +99,6 @@ function checkArrayAgainstArrayOfArrays(arrayToCheck, arrayOfArrays) {
 }
 
 function isGlidingPattern(sequence) {
-    // console.log(sequence.name);
     // can glide left or right
     // Sometimes only part of the sequence is gliding....
 
@@ -98,8 +118,7 @@ function isGlidingPattern(sequence) {
         chunkedSequences[i] = chunks;
     }
 
-    let glidingLeftCount = 0;
-    let glidingRightCount = 0;
+    let glidingCount = 0;
 
     for (let i = 0; i < numberSequencesToCompare; i++) {
         chunkedSequences[i].forEach((chunk, j) => {
@@ -109,18 +128,14 @@ function isGlidingPattern(sequence) {
 
             // console.log(chunk, chunkedSequences[1][i - 1]);
                 if (nextLinesLeftChunk && nextLinesLeftChunk.reduce((sum, entry) => sum + entry) < 1 && arraysEqual(chunk, nextLinesLeftChunk)) {
-                    glidingLeftCount++;
-                }
-                if (nextLinesRightChunk && nextLinesRightChunk.reduce((sum, entry) => sum + entry) < 1 && arraysEqual(chunk, nextLinesRightChunk)) {
-                    glidingRightCount++;
+                    glidingCount++;
                 }
             }
         })
 
     }
 
-    // console.log(glidingLeftCount, glidingRightCount);
-    return (glidingLeftCount + glidingRightCount) > glidingThreshold * numberSequencesToCompare;
+    return glidingCount > glidingThreshold;
 }
 
 function isBlinkingPattern(sequence) {
@@ -133,21 +148,20 @@ function determineSequenceTypes(sequence) {
 
     let lastSequence = sequence.iterations[sequence.iterations.length - 1];
 
-    if (isGlidingPattern(sequence)) {
-        sequenceTypes.push('Gliding')
-    }
     if (isBlinkingPattern(sequence)) {
         sequenceTypes.push('Blinking')
     }
-
     if (lastSequence.reduce((sum, entry) => sum + entry) < 1) {
-        // can't be blinking and vanish
         sequenceTypes.push('Vanishing')
+    } else if (isGlidingPattern(sequence)) {
+        // can't be gliding and vanish
+        sequenceTypes.push('Gliding')
     }
+
     if (sequenceTypes.length < 1) {
         sequenceTypes.push("other");
     }
 
     return sequenceTypes;
 }
-export { convertToBinary, determineNextLine, determineSequenceTypes };
+export { getInfoAboutCurrentSquare, convertToBinary, determineNextLine, determineSequenceTypes };
